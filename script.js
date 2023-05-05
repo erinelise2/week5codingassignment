@@ -5,7 +5,7 @@ class Rider {
     }
 
     describe(){
-        return `${this.name} will be competing with ${this.horse}.\n`;
+        return `${this.name} will be competing with ${this.horse}.`;
     }
 }
 
@@ -76,7 +76,7 @@ class Menu {
    }
    displayBarns() {
     let barnString = "";
-        for(let i = 0; 1 < this.barns.length; i++) {
+        for(let i = 0; i < this.barns.length; i++) {
             barnString += i + ") " + this.barns[i].name + `\n`;
         }
     alert(barnString);
@@ -107,8 +107,8 @@ class Menu {
    }
    deleteBarn() {
     let index = prompt(`Enter the index of the Barn you would like to Delete.`);
-    if (index > -1 && index < this.selectedBarn.rider.length) {
-        this.selectedBarn.rider.splice(index, 1);
+    if (index > -1 && index < this.barns.length) {
+        this.barns.splice(index, 1);
     }
    }
    createRider() {
