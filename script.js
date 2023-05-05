@@ -9,7 +9,7 @@ class Rider {
     }
 }
 
-class Team {
+class Barn {
     constructor(name) {
         this.name = name;
         this.riders = [];
@@ -23,14 +23,14 @@ class Team {
         }
     }
     describe() {
-        return `${this.name} has ${this.riders.length} riders.`
+        return `Barn ${this.name} has ${this.riders.length} riders.`
     }
 }
 
 class Menu {
     constructor () {
-        this.teams = [];
-        this.selectedTeam = null;
+        this.barns = [];
+        this.selectedBarn = null;
     }
 
     start() {
@@ -38,16 +38,16 @@ class Menu {
         while(selection !=0) {
             switch(selection) {
                 case '1':
-                    this.createTeam();
+                    this.createBarn();
                     break;
                 case '2':
-                    this.viewTeam();
+                    this.viewBarn();
                     break;
                 case '3':
-                    this.deleteTeam();
+                    this.deleteBarn();
                     break;
                 case '4':
-                    this.displayTeams();
+                    this.displayBarns();
                     break;
                 default:
                     selection = 0;
@@ -58,43 +58,43 @@ class Menu {
     }
     showMainMenuOptions() {
         return prompt (`
-            1) Create a New Team
-            2) View a Team
-            3) Delete a Team
-            4) Diplay all Teams
+            1) Create a New Barn
+            2) View a Barn
+            3) Delete a Barn
+            4) Display all Barns
             5) Exit`
         );
    }
-   showTeamMenuOptions(teamInfo) {
+   showBarnMenuOptions(barnInfo) {
     return prompt(`
         1) Create New Rider
         2) Delete a Rider
         3) Exit
         -------------------
-        ${teamInfo}
-    `)
+        ${barnInfo}
+        `);
    }
-   displayTeams() {
-    let teamString = "";
-        for(let i = 0; 1 < this.teams.length; i++) {
-            teamString += i + ") " + this.teams[i].name + `\n`;
+   displayBarns() {
+    let barnString = "";
+        for(let i = 0; 1 < this.barns.length; i++) {
+            barnString += i + ") " + this.barns[i].name + `\n`;
         }
-    alert(teamString);
+    alert(barnString);
    }
-   createTeam() {
-    let name = prompt ("Enter Name of the new Team: ");
-    this.teams.push(new Team(name));
+   createBarn() {
+    let name = prompt ("Enter Name of the New Barn: ");
+    this.barns.push(new Barn(name));
    }
-   viewTeam(){
-    let index = prompt("Enter the index of the team you would like to view.");
-    if (index > -1 && index < this.teams.length) {
-        this.selectedTeam = this.teams[index];
-        let description = `Team Name: ` + this.selectedTeam.name + `\n`;
-        description += " " + this.selectedTeam.describe() + `\n`;
-        for (let i = 0; i < this.selectedTeam.riders.length; i++) {
-            description += i + `) ` + this.selectedTeam.riders[i].describe() + `\n`;
+   viewBarn(){
+    let index = prompt('Enter the index of the Barn you would like to view.');
+    if (index > -1 && index < this.barns.length) {
+        this.selectedBarn = this.barns[index];
+        let description = 'Barn Name: ' + this.selectedBarn.name + '\n';
+        description += ' ' + this.selectedBarn.describe() + '\n';
+        for (let i = 0; i < this.selectedBarn.riders.length; i++) {
+            description += i + ') ' + this.selectedBarn.riders[i].describe() + '\n';
         }
-        let selection1 = this.showTeamMenuOptions(description);
+        let selection1 = this.showBarnMenuOptions(description);
         switch(selection1) {
             case '1':
                 this.createRider();
@@ -105,10 +105,21 @@ class Menu {
         }
     }
    }
-   deleteTeam() {
-    let index = prompt(`Enter the index of the Team you would like to Delete.`);
-    if (index > -1 && index < this.selectedTeam.rider.length) {
-        this.selectedTeam.rider.splice(index,1);
+   deleteBarn() {
+    let index = prompt(`Enter the index of the Barn you would like to Delete.`);
+    if (index > -1 && index < this.selectedBarn.rider.length) {
+        this.selectedBarn.rider.splice(index, 1);
+    }
+   }
+   createRider() {
+    let name = prompt(`Enter the Name of the New Rider:`);
+    let horse = prompt(`Enter the Name of the rider's horse: `);
+    this.selectedBarn.addRider(new Rider(name, horse));
+   }
+   deleteRider() {
+    let index = prompt(`Enter the Name of the Rider you would like to delete: `);
+    if (index > -1 && index < this.selectedBarn.riders.length) {
+        this.selectedBarn.riders.splice(index, 1);
     }
    }
 }
